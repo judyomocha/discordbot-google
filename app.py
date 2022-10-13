@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from collections import defaultdict, deque
 from pathlib import Path
 from discord import Intents
+from discord.ext import commands
 from apiclient.discovery import build
 from discord.player import FFmpegPCMAudio
 from discord.channel import VoiceChannel
@@ -38,20 +39,20 @@ async def on_ready():
 
 @client.event
 @client.event
-async def on_message(message):
-    global voiceChannel
+async def check_queue(self, ctx):
     if message.author.bot:
         return
-    if message.author.voice.channel:
+    else :
          text = message.content
          if message.content == '!con':
-            voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
-            await message.channel.send('おしゃべりしましょう！')
+            channel = ctx.author.voice.channel
+            await channel.connect()
+            await ctx.send(f"Connected to voice channel: '{channel}'")
+            await message.channel.send('読み上げるよ！')
             return
          if message.content == '!en':
-            voiceChannel.stop()
-            await message.channel.send('またね！')
-            await voiceChannel.disconnect()
+            await channel.stop()
+            await message.channel.send('またね！')           
             return
          elif message.content != '!con' or '!en':
               chat_client = pya3rt.TalkClient(TALK_API_KEY)
