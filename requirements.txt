@@ -14,7 +14,6 @@ pydub
 pynacl
 python-dotenv
 structlog
-PyNaCl library
 python-dotenv
 Flask
 google-api-python-client
