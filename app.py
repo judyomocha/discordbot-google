@@ -36,15 +36,17 @@ voiceChannel: VoiceChannel
 async def on_ready():
     print('Login!!!')
 
+
 @client.event
-async def check_queue(self, ctx):
+@client.event
+async def on_message(message):
+    global voiceChannel
     if message.author.bot:
         return
-    else :
+    if message.author.voice.channel:
          text = message.content
-         if message.content == '!con':
-            channel = ctx.author.voice.channel
-            await channel.connect()
+        if message.content == '!con':
+            voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
             await ctx.send(f"Connected to voice channel: '{channel}'")
             await message.channel.send('読み上げるよ！')
             return
