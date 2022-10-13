@@ -22,3 +22,4 @@ python -m pip install --upgrade google-cloud-texttospeech
 python -m pip install --upgrade pip
 python -m pip install --upgrade pydata-google-auth
 sudo dnf install ffmpeg
+python -m pip install gunicorn
