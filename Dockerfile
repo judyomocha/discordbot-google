@@ -28,9 +28,6 @@ RUN pip install -U "discord.py[voice]"
 RUN pip install -r requirements.txt
 
 
-
-
-
 # Copy local code to the container image.
 COPY . ./
 
@@ -42,4 +39,4 @@ COPY . ./
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
 
 
-RUN sudo apt-get -y install ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
