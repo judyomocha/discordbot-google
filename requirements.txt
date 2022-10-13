@@ -6,7 +6,7 @@ structlog==22.1.0
 
 google-auth==2.3.2
 
-python3 -m pip install -U discord[voice]
+
 python -m pip install numpy
 python -m pip install logger
 python -m pip install oauth2client
