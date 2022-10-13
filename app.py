@@ -76,7 +76,7 @@ async def check_queue(self, ctx):
               with open("hello.mp3", "wb") as out:
                   out.write(response.audio_content)
                   print('Audio content written to file "hello.mp3"')
-                  message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
+                  channel.play(discord.FFmpegPCMAudio("hello.mp3"))
          return
 
 client.run(TOKEN)
