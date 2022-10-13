@@ -25,31 +25,7 @@ COPY requirements.txt ./
 
 # Install dependencies.
 RUN pip install -r requirements.txt
-RUN curl https://sdk.cloud.google.com | bash
-RUN python -m pip install discord.py[voice]
-RUN python -m pip3 install aiohttp
-RUN python -m pip3 install numpy
-RUN python -m pip3 install logger
-RUN python -m pip3 install oauth2client
-RUN python -m pip3 install pynacl
-RUN python -m pip3 install pydub
-RUN python -m pip3 install PyNaCl
-RUN python -m pip3 install python-dotenv
-RUN python -m pip3 install structlog
-RUN python -m pip3 install PyNaCl library
-RUN python -m pip3 install python-dotenv
-RUN python -m pip3 install Flask
-RUN python -m pip3 install google-api-python-client
-RUN python -m pip3 install google-auth-httplib2
-RUN python -m pip3 install google-auth-oauthlib
-RUN python -m pip3 install google-cloud-storage
-RUN python -m pip3 install google-cloud-texttospeech
-RUN python -m pip3 install --upgrade google-api-python-client
-RUN python -m pip3 install --upgrade google-cloud-storage
-RUN python -m pip3 install --upgrade google-cloud-texttospeech
-RUN python -m pip3 install --upgrade pip
-RUN python -m pip3 install --upgrade pydata-google-auth
-RUN sudo dnf install ffmpeg
+
 
 
 
