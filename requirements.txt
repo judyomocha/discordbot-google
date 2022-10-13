@@ -5,4 +5,25 @@ requests==2.28.1
 structlog==22.1.0
 
 google-auth==2.3.2
-
+numpy
+logger
+oauth2client
+pynacl
+pydub
+PyNaCl
+python-dotenv
+structlog
+PyNaCl library
+python-dotenv
+Flask
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+google-cloud-storage
+google-cloud-texttospeech
+--upgrade google-api-python-client
+--upgrade google-cloud-storage
+--upgrade google-cloud-texttospeech
+--upgrade pip
+--upgrade pydata-google-auth
+ffmpeg
