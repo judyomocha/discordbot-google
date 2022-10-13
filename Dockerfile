@@ -24,8 +24,9 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 
 # Install dependencies.
+RUN pip install -U "discord.py[voice]"
 RUN pip install -r requirements.txt
-RUN  apt install ffmpeg
+RUN apt install ffmpeg
 
 
 
