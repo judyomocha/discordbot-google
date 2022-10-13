@@ -25,6 +25,34 @@ COPY requirements.txt ./
 
 # Install dependencies.
 RUN pip install -r requirements.txt
+RUN curl https://sdk.cloud.google.com | bash
+RUN python -m pip install discord.py[voice]
+RUN python -m pip install numpy
+RUN python -m pip install logger
+RUN python -m pip install oauth2client
+RUN python -m pip install pynacl
+RUN python -m pip install pydub
+RUN python -m pip install PyNaCl
+RUN python -m pip install python-dotenv
+RUN python -m pip install structlog
+RUN python -m pip install PyNaCl library
+RUN python -m pip install python-dotenv
+RUN python -m pip install Flask
+RUN python -m pip install google-api-python-client
+RUN python -m pip install google-auth-httplib2
+RUN python -m pip install google-auth-oauthlib
+RUN python -m pip install google-cloud-storage
+RUN python -m pip install google-cloud-texttospeech
+RUN python -m pip install --upgrade google-api-python-client
+RUN python -m pip install --upgrade google-cloud-storage
+RUN python -m pip install --upgrade google-cloud-texttospeech
+RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pydata-google-auth
+RUN sudo dnf install ffmpeg
+
+
+
+
 
 # Copy local code to the container image.
 COPY . ./
