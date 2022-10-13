@@ -60,7 +60,7 @@ async def on_message(message):
             
               from google.cloud import texttospeech
               client = texttospeech.TextToSpeechClient()
-              synthesis_input = texttospeech.SynthesisInput(text=text)
+              synthesis_input = texttospeech.SynthesisInput(text=txt)
               voice = texttospeech.VoiceSelectionParams(
                   language_code="ja-JP",
                   name="ja-JP-Wavenet-D",
