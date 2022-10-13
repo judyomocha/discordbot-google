@@ -6,27 +6,3 @@ structlog==22.1.0
 
 google-auth==2.3.2
 
-
-pip install numpy
-pip install logger
-pip install oauth2client
-pip install pynacl
-pip install pydub
-pip install PyNaCl
-pip install python-dotenv
-pip install structlog
-pip install PyNaCl library
-pip install python-dotenv
-pip install Flask
-pip install google-api-python-client
-pip install google-auth-httplib2
-pip install google-auth-oauthlib
-pip install google-cloud-storage
-pip install google-cloud-texttospeech
-pip install --upgrade google-api-python-client
-pip install --upgrade google-cloud-storage
-pip install --upgrade google-cloud-texttospeech
-pip install --upgrade pip
-pip install --upgrade pydata-google-auth
-sudo dnf install ffmpeg
-pip install gunicorn
