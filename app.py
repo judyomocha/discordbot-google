@@ -12,7 +12,7 @@ from collections import defaultdict, deque
 from pathlib import Path
 from discord import Intents
 from apiclient.discovery import build
-from discord import ffmpeg
+import ffmpeg
 from discord.channel import VoiceChannel
 # .envファイルの内容を読み込見込む
 load_dotenv()
