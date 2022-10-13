@@ -19,3 +19,4 @@ google-auth-httplib2
 google-auth-oauthlib
 google-cloud-storage
 google-cloud-texttospeech
+PyNaCl==1.5.0
