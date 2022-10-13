@@ -9,9 +9,7 @@ aiohttp
 numpy
 logger
 oauth2client
-pynacl
 pydub
-pynacl
 python-dotenv
 structlog
 python-dotenv
@@ -21,4 +19,3 @@ google-auth-httplib2
 google-auth-oauthlib
 google-cloud-storage
 google-cloud-texttospeech
-discord2
