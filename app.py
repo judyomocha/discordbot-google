@@ -48,9 +48,9 @@ async def on_message(message):
             await message.channel.send('読み上げるよ！')
             return
          if message.content == '!en':
-            VoiceChannel.stop()
+            voiceChannel.stop()
             await message.channel.send('またね！')
-            await VoiceChannel.disconnect()
+            await voiceChannel.disconnect()
             return
          elif message.content != '!con' or '!en':
               from google.cloud import texttospeech
