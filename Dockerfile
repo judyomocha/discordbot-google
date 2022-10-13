@@ -25,7 +25,7 @@ COPY requirements.txt ./
 
 # Install dependencies.
 RUN pip install -r requirements.txt
-RUN sudo dnf install ffmpeg
+RUN sudo apt-get -y install ffmpeg
 
 
 
