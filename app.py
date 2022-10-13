@@ -41,7 +41,7 @@ async def on_message(message):
     global voiceChannel
     if message.author.bot:
         return
-    if message.author.voice.channel:
+    else :
          text = message.content
          if message.content == '!con':
             voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
