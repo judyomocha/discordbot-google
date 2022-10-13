@@ -11,7 +11,7 @@ logger
 oauth2client
 pynacl
 pydub
-PyNaCl
+pynacl
 python-dotenv
 structlog
 PyNaCl library
@@ -22,9 +22,4 @@ google-auth-httplib2
 google-auth-oauthlib
 google-cloud-storage
 google-cloud-texttospeech
---upgrade google-api-python-client
---upgrade google-cloud-storage
---upgrade google-cloud-texttospeech
---upgrade pip
---upgrade pydata-google-auth
 ffmpeg
