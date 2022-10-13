@@ -36,21 +36,20 @@ async def on_ready():
     print('Login!!!')
 
 @client.event
-@client.event
-async def on_message(message):
-    global voiceChannel
+async def check_queue(self, ctx):
     if message.author.bot:
         return
     else :
          text = message.content
          if message.content == '!con':
-            voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
+            channel = ctx.author.voice.channel
+            await channel.connect()
+            await ctx.send(f"Connected to voice channel: '{channel}'")
             await message.channel.send('読み上げるよ！')
             return
          if message.content == '!en':
-            
+            await channel.stop()
             await message.channel.send('またね！')
-            await voiceChannel.disconnect()
             return
          elif message.content != '!con' or '!en':
               from google.cloud import texttospeech
@@ -58,7 +57,7 @@ async def on_message(message):
               synthesis_input = texttospeech.SynthesisInput(text=text)
               voice = texttospeech.VoiceSelectionParams(
                   language_code="ja-JP",
-                  name="ja-JP-Wavenet-B",
+                  name="ja-JP-Wavenet-D",
                   ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
               )
               audio_config = texttospeech.AudioConfig(
