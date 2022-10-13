@@ -23,4 +23,3 @@ google-cloud-storage
 google-cloud-texttospeech
 ffmpeg
 discord2
-python-ffmpeg
