@@ -27,6 +27,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 RUN curl https://sdk.cloud.google.com | bash
 RUN python -m pip install discord.py[voice]
+RUN python -m pip install aiohttp
 RUN python -m pip install numpy
 RUN python -m pip install logger
 RUN python -m pip install oauth2client
