@@ -1,5 +1,5 @@
 curl https://sdk.cloud.google.com | bash
-python -m pip install discord[voice]
+python3 -m pip install -U discord.py[voice]
 python -m pip install numpy
 python -m pip install logger
 python -m pip install oauth2client
