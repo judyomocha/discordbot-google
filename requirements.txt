@@ -22,3 +22,4 @@ google-auth-oauthlib
 google-cloud-storage
 google-cloud-texttospeech
 ffmpeg
+discord-voice
