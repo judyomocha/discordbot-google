@@ -7,12 +7,13 @@ app = Flask(__name__)
 import discord
 import json
 import os
+import pynacl
 from dotenv import load_dotenv
 from collections import defaultdict, deque
 from pathlib import Path
 from discord import Intents
 from apiclient.discovery import build
-import ffmpeg
+from discord.player import FFmpegPCMAudio
 from discord.channel import VoiceChannel
 # .envファイルの内容を読み込見込む
 load_dotenv()
