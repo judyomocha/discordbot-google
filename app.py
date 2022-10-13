@@ -7,6 +7,7 @@ app = Flask(__name__)
 import discord
 import json
 import os
+import pya3rt
 from dotenv import load_dotenv
 from collections import defaultdict, deque
 from pathlib import Path
@@ -17,7 +18,7 @@ from discord.channel import VoiceChannel
 # .envファイルの内容を読み込見込む
 load_dotenv()
 TOKEN = os.environ['TOKEN']
-
+TALK_API_KEY = os.environ['TALK_API_KEY']
 
 from google.oauth2.service_account import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -45,7 +46,7 @@ async def on_message(message):
          text = message.content
          if message.content == '!con':
             voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
-            await message.channel.send('読み上げるよ！')
+            await message.channel.send('おしゃべりしましょう！')
             return
          if message.content == '!en':
             voiceChannel.stop()
@@ -53,6 +54,10 @@ async def on_message(message):
             await voiceChannel.disconnect()
             return
          elif message.content != '!con' or '!en':
+              chat_client = pya3rt.TalkClient(TALK_API_KEY)
+              response = chat_client.talk(message)
+              txt = ((chat_client.talk(message.content)['results'][0]['reply']))
+            
               from google.cloud import texttospeech
               client = texttospeech.TextToSpeechClient()
               synthesis_input = texttospeech.SynthesisInput(text=text)
