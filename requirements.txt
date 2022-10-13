@@ -7,7 +7,7 @@ structlog==22.1.0
 google-auth==2.3.2
 
 
-curl https://sdk.cloud.google.com | bash
+
 python3 -m pip install -U discord[voice]
 python -m pip install numpy
 python -m pip install logger
