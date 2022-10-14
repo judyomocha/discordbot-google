@@ -79,6 +79,4 @@ async def on_message(message):
                     print('Audio content written to file "hello.mp3"')
                     message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
 
-        return
-
 client.run(TOKEN)
