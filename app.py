@@ -48,31 +48,30 @@ async def on_message(message):
             voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
             await message.channel.send('読み上げるよ！')
             return
-        if message.content == '!en':
-            message.guild.voice_client.stop()
-            await message.channel.send('またね！')
-            await VoiceChannel.disconnect()
-            return
-        elif message.content != '!con' or '!en':
-            from google.cloud import texttospeech
-            client = texttospeech.TextToSpeechClient()
-            synthesis_input = texttospeech.SynthesisInput(text=text)
-            voice = texttospeech.VoiceSelectionParams(
-                language_code="ja-JP",
-                name="ja-JP-Wavenet-B",
-                ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-                )
-            audio_config = texttospeech.AudioConfig(
-                audio_encoding=texttospeech.AudioEncoding.MP3
-                )
-            response = client.synthesize_speech(
-                input=synthesis_input, voice=voice, audio_config=audio_config
-                )
-            with open("hello.mp3", "wb") as out:
-                out.write(response.audio_content)
-                print('Audio content written to file "hello.mp3"')
-                message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
+        if voiceChannel.is_connected():
+            if message.content == '!en':
+                await message.channel.send('またね！')
+                await voiceChannel.disconnect()
+                return
+            else :
+                from google.cloud import texttospeech
+                client = texttospeech.TextToSpeechClient()
+                synthesis_input = texttospeech.SynthesisInput(text=text)
+                voice = texttospeech.VoiceSelectionParams(
+                    language_code="ja-JP",
+                    name="ja-JP-Wavenet-B",
+                    ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+                    )
+                audio_config = texttospeech.AudioConfig(
+                    audio_encoding=texttospeech.AudioEncoding.MP3
+                    )
+                response = client.synthesize_speech(
+                    input=synthesis_input, voice=voice, audio_config=audio_config
+                    )
+                with open("hello.mp3", "wb") as out:
+                    out.write(response.audio_content)
+                    print('Audio content written to file "hello.mp3"')
+                    message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
         return
 
 client.run(TOKEN)
-            
