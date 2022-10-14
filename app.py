@@ -42,13 +42,13 @@ async def on_message(message):
     global voiceChannel
     if message.author.bot:
         return
-    elif :
+    else :
         text = message.content
         if message.content == '!con':
             voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
             await message.channel.send('読み上げるよ！')
             return
-        elif :
+        else :
             if  message.content == '!en':
                 voiceChannel.stop()
                 await message.channel.send('またね！')
@@ -73,7 +73,7 @@ async def on_message(message):
                     out.write(response.audio_content)
                     print('Audio content written to file "hello.mp3"')
                     message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
-                    return
+
         return
 
 client.run(TOKEN)
