@@ -49,7 +49,7 @@ async def on_message(message):
             await message.channel.send('読み上げるよ！')
             return
         if message.content == '!en':
-            VoiceChannel.stop()
+            message.guild.voice_client.stop()
             await message.channel.send('またね！')
             await VoiceChannel.disconnect()
             return
