@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 
 # Install dependencies.
-RUN pip install -U "discord.py[voice]"
+RUN pip instal "discord-voice"
 RUN pip install -r requirements.txt
 
 
