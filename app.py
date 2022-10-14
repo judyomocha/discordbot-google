@@ -59,7 +59,7 @@ async def on_message(message):
             synthesis_input = texttospeech.SynthesisInput(text=text)
             voice = texttospeech.VoiceSelectionParams(
                 language_code="ja-JP",
-                name="ja-JP-Wavenet-D",
+                name="ja-JP-Wavenet-B",
                 ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
                 )
             audio_config = texttospeech.AudioConfig(
