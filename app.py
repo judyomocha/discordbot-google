@@ -17,8 +17,6 @@ from discord.player import FFmpegPCMAudio
 from discord.channel import VoiceChannel
 # .envファイルの内容を読み込見込む
 load_dotenv()
-TOKEN = os.environ['TOKEN']
-
 
 from google.oauth2.service_account import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -32,50 +30,43 @@ intents: Intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 voiceChannel: VoiceChannel 
 
-@client.event
-async def on_ready():
-    print('Login!!!')
+load_dotenv()
+TOKEN = os.environ['TOKEN']
+GUILD_ID = os.environ['GUILD_ID']
+CHANNEL_ID = os.environ['CHANNEL_ID']
+SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
+SHEET_NAME = os.environ['SHEET_NAME']
+GCP_SA_KEY = os.environ['GCP_SA_KEY']
+
+
+
+
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+
 
 @client.event
-@client.event
 async def on_message(message):
-    global voiceChannel
-    if message.author.bot:
+    if message.author == client.user:
         return
-    else :
-        text = message.content
-        if message.content == '!con':
-            voiceChannel = await VoiceChannel.connect(message.author.voice.channel)
-            await message.channel.send('読み上げるよ！')
-            return
-        else :
-            if  message.content == '!en':
-                voiceChannel.stop()
-                await message.channel.send('またね！')
-                await voiceChannel.disconnect()
-                return
-            else :
-                from google.cloud import texttospeech
-                client = texttospeech.TextToSpeechClient()
-                synthesis_input = texttospeech.SynthesisInput(text=text)
-                voice = texttospeech.VoiceSelectionParams(
-                    language_code="ja-JP",
-                    name="ja-JP-Wavenet-B",
-                    ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-                    )
-                audio_config = texttospeech.AudioConfig(
-                    audio_encoding=texttospeech.AudioEncoding.MP3
-                    )
-                response = client.synthesize_speech(
-                    input=synthesis_input, voice=voice, audio_config=audio_config
-                    )
-                with open("hello.mp3", "wb") as out:
-                    out.write(response.audio_content)
-                    print('Audio content written to file "hello.mp3"')
-                    message.guild.voice_client.play(discord.FFmpegPCMAudio("hello.mp3"))
-                return
-            return
-        
+
+    if message.channel.id != int(CHANNEL_ID):
+        return
+
+    if message.channel.id == int(CHANNEL_ID):
+        import gspread
+        from oauth2client.service_account import ServiceAccountCredentials
+        scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+        parsed = json.loads(GCP_SA_KEY)
+        gc = gspread.service_account_from_dict(parsed)
+        sh = gc.open_by_key(SPREADSHEET_KEY)
+        ws = sh.worksheet(SHEET_NAME)
+        def next_available_row(ws):
+            str_list = list(filter(None, ws.col_values(1)))
+            return str(len(str_list) + 1)
+        next_row = next_available_row(ws)
+        ws.update_cell(next_row, 1, message.content)
+        await message.channel.send(f'更新します {message.author}!')
         return
 
 client.run(TOKEN)
