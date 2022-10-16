@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 
 # Install dependencies.
-RUN pip install -U "discord.py[voice]"
+RUN pip install -U "discord.py"
 RUN pip install -r requirements.txt
 
 
@@ -38,5 +38,3 @@ COPY . ./
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
 
-
-RUN apt-get update && apt-get install -y ffmpeg
