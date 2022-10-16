@@ -59,14 +59,13 @@ async def on_message(message):
         return
 
     if message.channel.id == int(CHANNEL_ID):
-        data = message.content
 
         def next_available_row(ws):
             str_list = list(filter(None, ws.col_values(1)))
             return str(len(str_list) + 1)
         next_row = next_available_row(ws)
 
-        ws.update_cell(next_row, 1, data)
+        ws.update_cell(next_row, 1, message.content)
         await message.channel.send(f'更新します {message.author}!')
         print(f'更新します {message.author}!')
         return
