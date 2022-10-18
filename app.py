@@ -12,24 +12,24 @@ SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
 NAME = os.environ['NAME']
 
-
-from google.oauth2.service_account import Credentials
-from oauth2client.service_account import ServiceAccountCredentials
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-
-import json
-json_dict = json.load(NAME)
-
+from google.oauth2 import service_account
+service_account_key = NAME
+credentials = service_account.Credentials.from_service_account_info(service_account_key)
+scoped_credentials = credentials.with_scopes(
+  [
+    'https://www.googleapis.com/auth/cloud-platform',
+    'https://www.googleapis.com/auth/analytics.readonly'
+  ])
 
 def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gc = gspread.service_account_from_dict(json_dict)
+    gc = gspread.gspread.authorize(scoped_credentials)
     wb = gs.open_by_key(SPREADSHEET_KEY)
     sagyou = wb.worksheet(SPREADSHEET_NAME)
     return sagyou
 
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gc = gspread.service_account_from_dict(json_dict)
+    gc = gspread.gspread.authorize(scoped_credentials)
     wb = gc.open_by_key(SPREADSHEET_KEY)
     ss = wb.worksheet(SPREADSHEET_NAME)
     str_list = list(filter(None, ss.col_values(1)))
