@@ -18,4 +18,4 @@ COPY . ./
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
 
 
-RUN apt-get update && apt-get install -y google-api-python-client google-auth-httplib2 google-auth-oauthlib
+# RUN apt-get update && apt-get install -y google-api-python-client google-auth-httplib2 google-auth-oauthlib
