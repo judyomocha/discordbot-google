@@ -1,55 +1,45 @@
-# Copyright 2021 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-import signal
-import sys
-from types import FrameType
-from flask import Flask
-app = Flask(__name__)
-from google.oauth2.service_account import Credentials
-import gspread
-import discord
-import json
-import os
-from dotenv import load_dotenv
-from flask import Flask
-app = Flask(__name__)
 import discord
 import os
-import json
+from discord import Intents
 from dotenv import load_dotenv
+
 load_dotenv()
+
 TOKEN = os.environ['TOKEN']
-GUILD_ID = os.environ['GUILD_ID']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
-SHEET_NAME = os.environ['SHEET_NAME']
-GCP_SA_KEY = os.environ['GCP_SA_KEY']
-
+SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
+NAME = os.environ['NAME']
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-parsed = json.loads(GCP_SA_KEY)
-gc = gspread.service_account_from_dict(parsed)
-sh = gc.open_by_key(SPREADSHEET_KEY)
-ws = sh.worksheet(SHEET_NAME)
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name(NAME, scope)
 
+def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
+    gs = gspread.authorize(credentials)
+    wb = gs.open_by_key(SPREADSHEET_KEY)
+    ss = wb.worksheet(SPREADSHEET_NAME)
+    str_list = list(filter(None, ss.col_values(1)))
+    next_row = str(len(str_list) + 1)
+    last = int(next_row)
+    return last
 
-intents = discord.Intents.default()
+def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
+    gs = gspread.authorize(credentials)
+    wb = gs.open_by_key(SPREADSHEET_KEY)
+    sagyou = wb.worksheet(SPREADSHEET_NAME)
+    return sagyou
+
+intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
 
+@client.event
+async def on_ready():
+    print('Login!!!')
+
+@client.event
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -59,15 +49,12 @@ async def on_message(message):
         return
 
     if message.channel.id == int(CHANNEL_ID):
-
-        def next_available_row(ws):
-            str_list = list(filter(None, ws.col_values(1)))
-            return str(len(str_list) + 1)
-        next_row = next_available_row(ws)
-
-        ws.update_cell(next_row, 1, message.content)
-        await message.channel.send(f'更新します {message.author}!')
-        print(f'更新します {message.author}!')
-        return
+        data = message.content
+        ss = sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME)
+        value = last(SPREADSHEET_KEY,SPREADSHEET_NAME)
+        ss.update_cell(value, 1, data)
+        await message.channel.send(f'更新します {message.author}!{data}')
+    else:
+        print('error')
 
 client.run(TOKEN)
