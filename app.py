@@ -16,7 +16,7 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-def get_cred_config() -> dict[str, str]:
+def get_cred_config() -> dict(str, str):
     secret = os.environ.get("CLOUD_CREDENTIALS_SECRET")
     if secret:
         return json.loads(secret)
