@@ -1,6 +1,5 @@
 import discord
 import os
-import json
 from discord import Intents
 from dotenv import load_dotenv
 
@@ -16,9 +15,13 @@ NAME = os.environ['NAME']
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-with open(NAME) as f:
-    source = json.load(f)
-    credentials = json.loads(source,scope)
+
+import json
+json_data = json.load(NAME)
+    for datas in json_data:
+        # datasにはstrが入っているためdictで取得する
+        data = json_data[datas]
+    credentials = json.loads(data,scope)
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
     gs = gspread.service_account_from_dict(credentials)
