@@ -1,4 +1,5 @@
 import discord
+import gspread
 import os
 from discord import Intents
 from dotenv import load_dotenv
@@ -18,7 +19,6 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    import gspread
     credentials = NAME
     gc = gspread.service_account_from_dict(credentials)
     wb = gc.open_by_key(SPREADSHEET_KEY)
