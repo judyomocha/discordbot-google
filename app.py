@@ -15,11 +15,11 @@ NAME = os.environ['NAME']
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(NAME, scope)
+credentials = ServiceAccountCredentials.from_service_account_file(NAME, scope)
 
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gs = gspread.service_account_from_dict(credentials)
+    s = gspread.authorize(credentials)
     wb = gs.open_by_key(SPREADSHEET_KEY)
     ss = wb.worksheet(SPREADSHEET_NAME)
     str_list = list(filter(None, ss.col_values(1)))
