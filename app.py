@@ -15,8 +15,7 @@ NAME = os.environ['NAME']
 from oauth2client.service_account import ServiceAccountCredentials 
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
-# URLの情報を辞書型へ変換
-key = json.loads(requests.NAME.text)
+key = json.dumps(NAME)
 # credentialsを読み込む
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
 gc = gspread.authorize(credentials)
