@@ -3,13 +3,13 @@ gunicorn==20.1.0
 requests==2.28.1
 structlog==22.1.0
 google-auth==2.3.2
-python-dotenv
 aiohttp
 numpy
-pydub
-structlog
-Flask
+logger
 oauth2client
+pydub
+python-dotenv
+structlog
 gspread
 google-api-python-client
 google-auth-httplib2
