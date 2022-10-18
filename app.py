@@ -18,6 +18,14 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
 
+def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
+    credentials = NAME
+    gc = gspread.service_account_from_dict(credentials)
+    wb = gs.open_by_key(SPREADSHEET_KEY)
+    sagyou = wb.worksheet(SPREADSHEET_NAME)
+    return sagyou
+
+
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
     credentials = NAME
     gc = gspread.service_account_from_dict(credentials)
@@ -28,11 +36,6 @@ def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
     last = int(next_row)
     return last
 
-def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gs = gspread.authorize(credentials)
-    wb = gs.open_by_key(SPREADSHEET_KEY)
-    sagyou = wb.worksheet(SPREADSHEET_NAME)
-    return sagyou
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
