@@ -17,18 +17,19 @@ from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
+import json
+json_dict = json.load(NAME)
+
 
 def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    credentials = NAME
-    gc = gspread.service_account_from_dict(credentials)
+    gc = gspread.service_account_from_dict(json_dict)
     wb = gs.open_by_key(SPREADSHEET_KEY)
     sagyou = wb.worksheet(SPREADSHEET_NAME)
     return sagyou
 
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    credentials = NAME
-    gc = gspread.service_account_from_dict(credentials)
+    gc = gspread.service_account_from_dict(json_dict)
     wb = gc.open_by_key(SPREADSHEET_KEY)
     ss = wb.worksheet(SPREADSHEET_NAME)
     str_list = list(filter(None, ss.col_values(1)))
