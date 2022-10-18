@@ -11,9 +11,15 @@ SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
 GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 
+def get_cred_config() -> Dict[str, str]:
+    secret = os.environ.get("CLOUD_SQL_CREDENTIALS_SECRET")
+    if secret:
+        return json.loads(secret)
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+GOOGLE_APPLICATION_CREDENTIALS = get_cred_config()
 credentials = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_APPLICATION_CREDENTIALS, scope)
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
