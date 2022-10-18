@@ -10,30 +10,35 @@ TOKEN = os.environ['TOKEN']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
-NAME = os.environ['NAME']
+CLOUD_CREDENTIALS_SECRET = os.environ['CLOUD_CREDENTIALS_SECRET']
 
-from oauth2client.service_account import ServiceAccountCredentials 
-scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+import json
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
-key = json.dumps(NAME)
-# credentialsを読み込む
+def get_cred_config() -> Dict[str, str]:
+    secret = os.environ.get("CLOUD_CREDENTIALS_SECRET")
+    if secret:
+        return json.loads(secret)
+
+key = get_cred_config()
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
-gc = gspread.authorize(credentials)
-
-
-def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    wb = gs.open_by_key(SPREADSHEET_KEY)
-    sagyou = wb.worksheet(SPREADSHEET_NAME)
-    return sagyou
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    wb = gc.open_by_key(SPREADSHEET_KEY)
+    gs = gspread.authorize(credentials)
+    wb = gs.open_by_key(SPREADSHEET_KEY)
     ss = wb.worksheet(SPREADSHEET_NAME)
     str_list = list(filter(None, ss.col_values(1)))
     next_row = str(len(str_list) + 1)
     last = int(next_row)
     return last
 
+def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
+    gs = gspread.authorize(credentials)
+    wb = gs.open_by_key(SPREADSHEET_KEY)
+    sagyou = wb.worksheet(SPREADSHEET_NAME)
+    return sagyou
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -56,10 +61,14 @@ async def on_message(message):
         data = message.content
         ss = sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME)
         value = last(SPREADSHEET_KEY,SPREADSHEET_NAME)
-        row = int(value)
-        ss.update_cell(row, 1, data)
+        ss.update_cell(value, 1, data)
         await message.channel.send(f'更新します {message.author}!{data}')
     else:
         print('error')
 
 client.run(TOKEN)
+
+print('source.json')
+
+import os
+os.remove('source.json')
