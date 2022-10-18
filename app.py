@@ -16,7 +16,9 @@ NAME = os.environ['NAME']
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = json.loads(NAME,scope)
+with open(NAME) as f:
+    source = json.load(f)
+    credentials = json.loads(source,scope)
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
     gs = gspread.service_account_from_dict(credentials)
