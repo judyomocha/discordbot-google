@@ -69,7 +69,3 @@ async def on_message(message):
 
 client.run(TOKEN)
 
-print('source.json')
-
-import os
-os.remove('source.json')
