@@ -19,7 +19,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = Credentials.from_service_account_file(json_data, scope=scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(json_data, scope=scope)
 
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
