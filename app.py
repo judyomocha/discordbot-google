@@ -1,36 +1,33 @@
 import discord
 import gspread
 import os
+import json
+import requests
 from discord import Intents
 from dotenv import load_dotenv
-
 load_dotenv()
-
 TOKEN = os.environ['TOKEN']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
 NAME = os.environ['NAME']
 
-import json
-from google.oauth2 import service_account
-service_account_key = json.loads(NAME)
-credentials = service_account.Credentials.from_service_account_info(service_account_key)
-scoped_credentials = credentials.with_scopes(
-  [
-    'https://www.googleapis.com/auth/cloud-platform',
-    'https://www.googleapis.com/auth/analytics.readonly'
-  ])
+from oauth2client.service_account import ServiceAccountCredentials 
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+json_file = NAME
+# URLの情報を辞書型へ変換
+key = json.loads(requests.get(json_file).text)
+# credentialsを読み込む
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
+gc = gspread.authorize(credentials)
+
 
 def sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gc = gspread.gspread.authorize(scoped_credentials)
     wb = gs.open_by_key(SPREADSHEET_KEY)
     sagyou = wb.worksheet(SPREADSHEET_NAME)
     return sagyou
 
-
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
-    gc = gspread.gspread.authorize(scoped_credentials)
     wb = gc.open_by_key(SPREADSHEET_KEY)
     ss = wb.worksheet(SPREADSHEET_NAME)
     str_list = list(filter(None, ss.col_values(1)))
