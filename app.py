@@ -9,6 +9,8 @@ TOKEN = os.environ['TOKEN']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
+YOUR_PROJECT_ID = os.environ['YOUR_PROJECT_ID']
+YOUR_SECRET_ID = os.environ['YOUR_SECRET_ID']
 
 # Import the Secret Manager client library.
 from google.cloud import secretmanager
