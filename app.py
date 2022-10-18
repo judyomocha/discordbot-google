@@ -57,7 +57,8 @@ async def on_message(message):
         data = message.content
         ss = sagyou(SPREADSHEET_KEY,SPREADSHEET_NAME)
         value = last(SPREADSHEET_KEY,SPREADSHEET_NAME)
-        ss.update_cell(value, 1, data)
+        row = int(value)
+        ss.update_cell(row, 1, data)
         await message.channel.send(f'更新します {message.author}!{data}')
     else:
         print('error')
