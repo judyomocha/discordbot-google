@@ -9,12 +9,12 @@ TOKEN = os.environ['TOKEN']
 CHANNEL_ID = os.environ['CHANNEL_ID']
 SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
-NAME = os.environ['NAME']
+GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name(NAME, scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_APPLICATION_CREDENTIALS, scope)
 
 def last(SPREADSHEET_KEY,SPREADSHEET_NAME):
     gs = gspread.authorize(credentials)
