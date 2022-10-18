@@ -12,8 +12,9 @@ SPREADSHEET_KEY = os.environ['SPREADSHEET_KEY']
 SPREADSHEET_NAME = os.environ['SPREADSHEET_NAME']
 NAME = os.environ['NAME']
 
+import json
 from google.oauth2 import service_account
-service_account_key = NAME
+service_account_key = json.loads(NAME)
 credentials = service_account.Credentials.from_service_account_info(service_account_key)
 scoped_credentials = credentials.with_scopes(
   [
